@@ -1,7 +1,9 @@
 library(tidyverse)
 df <- read_csv("gapminder_tidy.csv")
 
+
 theme_set(theme_classic())
+
 
 
 # Age distribution over time in 4 countries
@@ -37,7 +39,7 @@ df %>%
   group_by(country) %>%
   summarise(population = sum(population)) %>%
   arrange(desc(population)) %>%
-  top_n(n=10) %>%
+  top_n(n=20) %>%
   ggplot(aes(x = country, y= population)) +
   geom_bar(stat = "identity") 
   
@@ -52,7 +54,7 @@ p2 <- df %>%
     summarise(population=sum(population)) %>%
     arrange(desc(population))
 
-df %>% 
+df.2 <- df %>% 
   filter(year == '2100') %>%
   group_by(country) %>%
   summarise(population = sum(population)) %>%
@@ -61,7 +63,7 @@ df %>%
   ggplot(aes(x = country, y= population)) +
   geom_bar(stat = "identity")
   
-
+ggsave("save-test.png", df.2)
 
 # Top 10 countries with respect to the change in total population between 1950 and 2100
 p3 <- df%>%
